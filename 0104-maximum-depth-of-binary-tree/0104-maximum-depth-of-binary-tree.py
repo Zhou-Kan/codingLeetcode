@@ -4,26 +4,25 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
-class Solution:
-    def __init__(self):
-        self.res = 0
-        self.depth = 0
+class Solution:    
         
     def maxDepth(self, root: Optional[TreeNode]) -> int:
-        if not root:
-            return 0
+        res = 0
+        depth = 0
         
-        self.depth += 1
-        
-        self.res = max(self.res, self.depth)
-        
-        self.maxDepth(root.left)
-        self.maxDepth(root.right)
-        
-        self.depth -= 1
-        
-        return self.res
-        
-        
+        def traverse(root):
+            nonlocal res, depth
+            if not root:
+                return 0
             
-        
+            depth += 1
+            res = max(res, depth)
+            
+            
+            traverse(root.left)
+            traverse(root.right)
+            
+            depth -= 1
+            
+        traverse(root)
+        return res
