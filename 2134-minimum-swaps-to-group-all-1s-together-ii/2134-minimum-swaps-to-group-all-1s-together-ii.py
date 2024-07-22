@@ -1,45 +1,20 @@
 class Solution:
     def minSwaps(self, nums: List[int]) -> int:
-        if len(nums) == 1 or sum(nums) == 0 or len(nums) == sum(nums):
-            return 0
-        counts = sum(nums)
+        total = sum(nums)
         
+        total_k = sum(nums[ 0 : total])
         
-        length = len(nums) - counts
+        res = total - total_k
         
-        res = float('inf')
+        n = len(nums)
         
-        num_sum = 0
-        
-        for i in range(length - 1):
-            num_sum += nums[i]
+        for i in range(1, n):
+            total_k += nums[(total + i - 1) % n] - nums[i - 1]
             
-        left = 0
-        right = length - 1
-        
-        while right < len(nums):
-            num_sum += nums[right]
+            res = min(res, total - total_k)
             
-            res = min(res, num_sum)
-            
-            num_sum -= nums[left]
-            left += 1
-            right += 1
-            
-        num_sum = 0
-        for i in range(counts - 1):
-            num_sum += nums[i]
-            
-        left = 0
-        right = counts - 1
-        
-        while right < len(nums):
-            num_sum += nums[right]
-            
-            res = min(res, counts - num_sum)
-            
-            num_sum -= nums[left]
-            left += 1
-            right += 1
             
         return res
+        
+        
+        
