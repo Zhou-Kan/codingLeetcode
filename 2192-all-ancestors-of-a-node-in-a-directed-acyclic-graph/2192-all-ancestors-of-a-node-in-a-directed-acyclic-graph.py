@@ -6,10 +6,10 @@ class Solution:
             g[v].append(e)
             
         def dfs(i):
-            if i in visited:
+            if visited[i]:
                 return
             
-            visited.add(i)
+            visited[i] = True
             
             for j in g[i]:
                 dfs(j)
@@ -17,10 +17,11 @@ class Solution:
         ans = [[] for _ in range(n)]
         
         for i in range(n):
-            visited = set()
+            visited = [False] * n 
             dfs(i)
+            visited[i] = False
             for j in range(n):
-                if j in visited and j != i:
+                if visited[j]:
                     ans[i].append(j)
                     
         return ans
